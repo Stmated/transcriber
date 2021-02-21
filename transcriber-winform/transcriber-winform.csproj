@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>transcriber_winform</RootNamespace>
     <AssemblyName>transcriber-winform</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,13 +36,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bass.Net, Version=2.4.11.1, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Eliason.AudioVisualizer\Eliason.AudioVisualizer\bin\Debug\Bass.Net.dll</HintPath>
-    </Reference>
     <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="ManagedBass, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\ManagedBass.3.0.0\lib\net45\ManagedBass.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -113,7 +114,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ScrollTest.resx">
+      <DependentUpon>ScrollTest.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="GSSF.ax" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,9 +133,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Eliason.AudioVisualizer\Eliason.AudioVisualizer\Eliason.AudioVisualizer.csproj">
       <Project>{2e21c94b-351d-40f2-9ab5-a2eefe30d3a3}</Project>
       <Name>Eliason.AudioVisualizer</Name>
@@ -139,16 +141,18 @@
       <Project>{463a2426-1de4-4145-bce9-2aae2e49ed22}</Project>
       <Name>Eliason.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Eliason.Scrollbar\Eliason.Scrollbar\Eliason.Scrollbar.csproj">
+	<ProjectReference Include="..\..\Eliason.TextEditor\Eliason.TextEditor\Eliason.TextEditor.csproj">
+      <Project>{68942E75-5200-4B1D-B420-ABD485BAB8B5}</Project>
+      <Name>Eliason.TextEditor</Name>
+    </ProjectReference>
+	<ProjectReference Include="..\..\Eliason.Scrollbar\Eliason.Scrollbar\Eliason.Scrollbar.csproj">
       <Project>{EDEE09B6-71BA-4FE9-823C-D1EBD27409AB}</Project>
       <Name>Eliason.Scrollbar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Eliason.TextEditor\Eliason.TextEditor\Eliason.TextEditor.csproj">
-      <Project>{68942e75-5200-4b1d-b420-abd485bab8b5}</Project>
-      <Name>Eliason.TextEditor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bass.dll" />
+    <Content Include="bass_fx.dll" />
     <Content Include="DirectShowLib-2005.dll" />
     <Content Include="Newtonsoft.Json.dll" />
   </ItemGroup>

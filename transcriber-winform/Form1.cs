@@ -16,8 +16,7 @@ using DirectShowLib;
 using Newtonsoft.Json;
 using transcriber_winform.Giphy;
 using transcriber_winform.GSSF;
-using Un4seen.Bass.Misc;
-using Un4seen.Bass;
+using ManagedBass;
 
 namespace transcriber_winform
 {
@@ -331,13 +330,16 @@ namespace transcriber_winform
 
             try
             {
-                BASS_CHANNELINFO info = Bass.BASS_ChannelGetInfo(sourceChannel);
-                long sourceLength = Bass.BASS_ChannelGetLength(sourceChannel);
+                var info = Bass.ChannelGetInfo(sourceChannel);
+                var sourceLength = Bass.ChannelGetLength(sourceChannel);
                 //double sourceLengthSeconds = Bass.BASS_ChannelBytes2Seconds(sourceChannel, );
-                int bitsPerSample = info.Is8bit ? 8 : info.Is32bit ? 32 : 16;
-                string combine = Path.Combine(targetDirectoryPath, DateTime.Now.ToString("yyyy-MM-dd hhmmss") + ".wav");
-                var waveWriter = new WaveWriter(combine, info.chans, info.freq, bitsPerSample, true);
+                var bitsPerSample = info.Resolution == Resolution.Byte ? 8 : info.Resolution == Resolution.Float ? 32 : 16;
+                var combine = Path.Combine(targetDirectoryPath, DateTime.Now.ToString("yyyy-MM-dd hhmmss") + ".wav");
+                //var waveWriter = new WaveFileWriter(combine, info.Channels, info.Frequency, bitsPerSample, true);
                 
+                var fileStream = new FileStream(combine, FileMode.CreateNew);
+                var waveWriter = new WaveFileWriter(fileStream, WaveFormat.FromChannel(sourceChannel));
+
                 var offsetTimestampWith = 0L;
                 var lastOutputEnd = 0L;
                 for (var lineIndex = 0; lineIndex < lines.Length; lineIndex++)
@@ -367,14 +369,15 @@ namespace transcriber_winform
                         {
                             // The match is a removal. So we will output anything that was before this.
                             long startByteIndex = lastOutputEnd; // Bass.BASS_ChannelSeconds2Bytes(sourceChannel, (timestampStart / 1000d));
-                            long endByteIndex = Bass.BASS_ChannelSeconds2Bytes(sourceChannel, (timestampStart / 1000d));
+                            long endByteIndex = Bass.ChannelSeconds2Bytes(sourceChannel, (timestampStart / 1000d));
                             long byteCount = endByteIndex - startByteIndex;
-                            lastOutputEnd = Bass.BASS_ChannelSeconds2Bytes(sourceChannel, (timestampEnd / 1000d));
+                            lastOutputEnd = Bass.ChannelSeconds2Bytes(sourceChannel, (timestampEnd / 1000d));
 
                             var buffer = new byte[byteCount];
-                            Bass.BASS_ChannelSetPosition(sourceChannel, startByteIndex);
-                            Bass.BASS_ChannelGetData(sourceChannel, buffer, buffer.Length);
-                            waveWriter.WriteNoConvert(buffer, buffer.Length);
+                            Bass.ChannelSetPosition(sourceChannel, startByteIndex);
+                            Bass.ChannelGetData(sourceChannel, buffer, buffer.Length);
+                            waveWriter.Write(buffer, buffer.Length);
+                            //waveWriter.WriteNoConvert(buffer, buffer.Length);
                             
                             offsetTimestampWith += (currentFrame.TimestampEnd - currentFrame.TimestampStart);
                             continue;
@@ -444,21 +447,22 @@ namespace transcriber_winform
                     //lastOutputEnd = Bass.BASS_ChannelSeconds2Bytes(sourceChannel, (timestampEnd / 1000d));
 
                     var buffer = new byte[byteCount];
-                    Bass.BASS_ChannelSetPosition(sourceChannel, startByteIndex);
-                    Bass.BASS_ChannelGetData(sourceChannel, buffer, buffer.Length);
-                    waveWriter.WriteNoConvert(buffer, buffer.Length);
+                    Bass.ChannelSetPosition(sourceChannel, startByteIndex);
+                    Bass.ChannelGetData(sourceChannel, buffer, buffer.Length);
+                    //waveWriter.WriteNoConvert(buffer, buffer.Length);
+                    waveWriter.Write(buffer, buffer.Length);
                 }
 
-                waveWriter.Close();
+                waveWriter.Dispose();
+                //waveWriter.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var i = 0;
             }
             finally
             {
-                Bass.BASS_ChannelStop(sourceChannel);
-                Bass.BASS_StreamFree(sourceChannel);
+                Bass.ChannelStop(sourceChannel);
+                Bass.StreamFree(sourceChannel);
             }
 
             for (int i = script.Frames.Count - 1; i >= 0; i--)
