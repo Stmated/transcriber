@@ -7,12 +7,12 @@
     <ProjectGuid>{427EDA7D-41A1-4CAD-A065-A352161870EA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>transcriber_winform</RootNamespace>
-    <AssemblyName>transcriber-winform</AssemblyName>
+    <RootNamespace>Transcriber</RootNamespace>
+    <AssemblyName>Transcriber</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -43,10 +43,6 @@
     <Reference Include="ManagedBass, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\ManagedBass.3.0.0\lib\net45\ManagedBass.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -154,7 +150,6 @@
     <Content Include="bass.dll" />
     <Content Include="bass_fx.dll" />
     <Content Include="DirectShowLib-2005.dll" />
-    <Content Include="Newtonsoft.Json.dll" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

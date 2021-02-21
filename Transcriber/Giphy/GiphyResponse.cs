@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace transcriber_winform.Giphy
+namespace Transcriber.Giphy
 {
     public class GiphyData
     {
-        [JsonProperty]
-        public String Type { get; set; }
+        [JsonProperty] public string Type { get; set; }
 
-        [JsonProperty]
-        public String Id { get; set; }
+        [JsonProperty] public string Id { get; set; }
 
         [JsonProperty(PropertyName = "image_original_url")]
-        public String ImageOriginalUrl { get; set; }
+        public string ImageOriginalUrl { get; set; }
 
         [JsonProperty(PropertyName = "image_url")]
-        public String ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         [JsonProperty(PropertyName = "image_mp4_url")]
-        public String ImageMp4Url { get; set; }
+        public string ImageMp4Url { get; set; }
 
         [JsonProperty(PropertyName = "image_width")]
         public int ImageWidth { get; set; }
@@ -30,63 +24,50 @@ namespace transcriber_winform.Giphy
         [JsonProperty(PropertyName = "image_height")]
         public int ImageHeight { get; set; }
 
-        [JsonProperty]
-        public GiphyImages Images { get; set; }
+        [JsonProperty] public GiphyImages Images { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class GiphyImage
     {
-        [JsonProperty]
-        public String Url { get; set; }
+        [JsonProperty] public string Url { get; set; }
 
-        [JsonProperty]
-        public String Mp4 { get; set; }
+        [JsonProperty] public string Mp4 { get; set; }
 
-        [JsonProperty]
-        public int Width { get; set; }
+        [JsonProperty] public int Width { get; set; }
 
-        [JsonProperty]
-        public int Height { get; set; }
+        [JsonProperty] public int Height { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class GiphyImages
     {
-        [JsonProperty]
-        public GiphyImage Original { get; set; }
+        [JsonProperty] public GiphyImage Original { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class GiphyMeta
     {
-        [JsonProperty]
-        public String Status { get; set; }
+        [JsonProperty] public string Status { get; set; }
 
-        [JsonProperty]
-        public String Message { get; set; }
+        [JsonProperty] public string Message { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class GiphyRandomResponse
     {
-        [JsonProperty]
-        public GiphyData Data { get; set; }
+        [JsonProperty] public GiphyData Data { get; set; }
 
-        [JsonProperty]
-        public GiphyMeta Meta { get; set; }
+        [JsonProperty] public GiphyMeta Meta { get; set; }
     }
 
     [JsonObject(MemberSerialization.OptIn)]
     public class GiphySearchResponse
     {
-        [JsonProperty]
-        public List<GiphyData> Data { get; set; }
+        [JsonProperty] public List<GiphyData> Data { get; set; }
 
-        [JsonProperty]
-        public GiphyMeta Meta { get; set; }
+        [JsonProperty] public GiphyMeta Meta { get; set; }
     }
-
 
 
     //{

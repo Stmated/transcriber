@@ -2,7 +2,7 @@
 using Eliason.Scrollbar;
 using Eliason.TextEditor.TextDocument.ByLines;
 
-namespace transcriber_winform
+namespace Transcriber
 {
     public partial class ScrollTest : Form
     {
@@ -18,7 +18,7 @@ namespace transcriber_winform
             container.Control = textView;
             container.Dock = DockStyle.Fill;
 
-            this.Controls.Add(container);
+            Controls.Add(container);
         }
     }
 }

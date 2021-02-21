@@ -1,4 +1,4 @@
-﻿namespace transcriber_winform
+﻿namespace Transcriber
 {
     partial class Form1
     {

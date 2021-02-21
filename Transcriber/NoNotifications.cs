@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Eliason.TextEditor;
 
-namespace transcriber_winform
+namespace Transcriber
 {
     public class NoNotifications : INotifier
     {
@@ -38,18 +38,12 @@ namespace transcriber_winform
 
         public NotifierInputResponse<T> AskInput<T>(NotifierInputRequest<T> request)
         {
-            return new NotifierInputResponse<T>()
-            {
-
-            };
+            return new NotifierInputResponse<T>();
         }
 
         public NotifierSelectResponse<T> AskSelect<T>(NotifierSelectRequest<T> notifierSelectRequest)
         {
-            return new NotifierSelectResponse<T>()
-            {
-
-            };
+            return new NotifierSelectResponse<T>();
         }
 
         public bool AskYesNo(string title, string message)
